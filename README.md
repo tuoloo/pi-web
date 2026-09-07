@@ -138,6 +138,27 @@ npm run lint
 
 Do not run `next build` or `npm run build` during normal development. It writes to `.next/` and can interfere with the development server; leave builds for release work.
 
+### Desktop app (Electron)
+
+This repository includes an Electron desktop shell. It starts Pi Web locally and opens it in a standalone desktop window, while retaining the existing session, model configuration, Git, and shell behavior.
+
+Start the desktop development app after installing dependencies:
+
+```bash
+npm install
+npm run desktop:dev
+```
+
+Build distributable packages with:
+
+```bash
+npm run desktop:dist
+```
+
+The command runs a Next.js production build first. Packages are written to `dist/`: macOS produces `.dmg` and `.zip`, Windows produces an installer and portable build, and Linux produces `AppImage` and `deb`. Build on the target operating system.
+
+The desktop app reads `~/.pi/agent` by default, just like the CLI and browser versions. Set `PI_CODING_AGENT_DIR` before launch to use another Pi data directory, or set `PI_WEB_PORT` to choose a preferred port. If that port is occupied, the desktop shell selects the next available port.
+
 Contributor guides: [Internationalization](./docs/i18n.md) and [Release process](./docs/release.md).
 
 ## Repository Layout

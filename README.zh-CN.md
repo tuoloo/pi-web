@@ -115,6 +115,27 @@ npm run lint
 
 日常开发时不要运行 `next build` 或 `npm run build`。它们会写入 `.next/`，可能干扰开发服务器；仅在发布流程中执行构建。
 
+### 桌面版（Electron）
+
+本仓库提供一个 Electron 桌面壳。它会在本机启动 Pi Web 服务，并在独立桌面窗口中打开，因此会继续复用现有的会话、模型配置、Git 和 Shell 能力。
+
+先安装依赖，然后启动桌面开发版：
+
+```bash
+npm install
+npm run desktop:dev
+```
+
+构建安装包：
+
+```bash
+npm run desktop:dist
+```
+
+构建前会执行 Next.js 生产构建。生成的安装包位于 `dist/`：macOS 默认生成 `.dmg` 和 `.zip`，Windows 默认生成安装程序和便携版，Linux 默认生成 `AppImage` 和 `deb`。正式打包需要在对应操作系统上执行。
+
+桌面版默认仍读取 `~/.pi/agent`。如需使用其他 Pi 数据目录，可在启动前设置 `PI_CODING_AGENT_DIR`；如需指定默认端口，可设置 `PI_WEB_PORT`。端口被占用时，桌面版会自动选择下一个可用端口。
+
 贡献者文档：[国际化](./docs/i18n.md)和[发布流程](./docs/release.md)。
 
 ## 仓库结构

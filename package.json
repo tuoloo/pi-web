@@ -2,6 +2,7 @@
   "name": "@agegr/pi-web",
   "version": "0.8.11",
   "description": "Web UI for the pi coding agent",
+  "main": "electron/main.cjs",
   "homepage": "https://github.com/agegr/pi-web#readme",
   "repository": {
     "type": "git",
@@ -33,6 +34,9 @@
     "build": "next build --webpack",
     "start": "next start -H 127.0.0.1 -p 30141",
     "start:lan": "next start -H 0.0.0.0 -p 30141",
+    "desktop:dev": "electron electron/main.cjs",
+    "desktop:build": "npm run build",
+    "desktop:dist": "npm run desktop:build && electron-builder",
     "lint": "eslint .",
     "test": "node --experimental-strip-types --test \"app/**/*.test.mjs\" \"components/**/*.test.mjs\" \"hooks/**/*.test.mjs\" \"lib/**/*.test.mjs\" \"public/**/*.test.mjs\"",
     "release": "npm version patch --no-git-tag-version && npm run build && npm publish --access public"
@@ -76,6 +80,34 @@
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
     "tailwindcss": "^4.2.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "electron": "^41.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "com.agegr.pi",
+    "productName": "Pi",
+    "icon": "assets/icon.png",
+    "asar": false,
+    "files": [
+      ".next/**/*",
+      "public/**/*",
+      "assets/**/*",
+      "electron/**/*",
+      "bin/**/*",
+      "next.config.ts",
+      "package.json"
+    ],
+    "mac": {
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.developer-tools",
+      "target": ["dmg", "zip"]
+    },
+    "win": {
+      "target": ["nsis", "portable"]
+    },
+    "linux": {
+      "target": ["AppImage", "deb"]
+    }
   }
 }
